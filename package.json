@@ -115,6 +115,7 @@
     "@loaders.gl/polyfills": "^4.0.3",
     "@types/mapbox__geo-viewport": "^0.4.1",
     "@typescript-eslint/parser": "^5.27.0",
+    "antd": "^5.11.5",
     "eslint-config-developit": "^1.2.0",
     "html-webpack-plugin": "^4.3.0",
     "typedoc": "^0.19.2"
