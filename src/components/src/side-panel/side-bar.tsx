@@ -21,6 +21,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {ArrowRight} from '../common/icons';
+import {CustomNavbar} from "../CustomNavbar";
 
 export type CollapseButtonProps = {
   isOpen: boolean;
@@ -123,20 +124,23 @@ function SidebarFactory(CollapseButton: ReturnType<typeof CollapseButtonFactory>
       const horizontalOffset = isOpen ? 0 : minifiedWidth - width;
 
       return (
-        <StyledSidePanelContainer width={isOpen ? width : 0} className="side-panel--container">
-          <SideBarContainer
-            className="side-bar"
-            style={{width: `${width}px`}}
-            left={horizontalOffset}
-          >
-            {isOpen ? (
-              <SideBarInner className="side-bar__inner">{this.props.children}</SideBarInner>
-            ) : null}
-            {shouldShowCollapseButton ? (
-              <CollapseButton isOpen={isOpen} onClick={this._onOpenOrClose} />
-            ) : null}
-          </SideBarContainer>
-        </StyledSidePanelContainer>
+        <>
+          <CustomNavbar />
+          <StyledSidePanelContainer width={isOpen ? width : 0} style={{paddingLeft: 80}} className="side-panel--container">
+            <SideBarContainer
+              className="side-bar"
+              style={{width: `${width}px`}}
+              left={horizontalOffset}
+            >
+              {isOpen ? (
+                <SideBarInner className="side-bar__inner">{this.props.children}</SideBarInner>
+              ) : null}
+              {shouldShowCollapseButton ? (
+                <CollapseButton isOpen={isOpen} onClick={this._onOpenOrClose} />
+              ) : null}
+            </SideBarContainer>
+          </StyledSidePanelContainer>
+        </>
       );
     }
   };
