@@ -253,7 +253,6 @@ const CellInfo = ({
 const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = props => {
     const {data, layer} = props;
-    const intl = useIntl();
     if (!data || !layer) {
       return null;
     }
@@ -265,9 +264,9 @@ const LayerHoverInfoFactory = () => {
     const exampleBuilding: Building = {
       certificateDefinitive: true,
       address: 'Sonnenbergstrasse 53, 5408 Ennetbaden, Aargau',
-      ratingEffizienzGebaedehuelle: 5,
-      ratingEffizienzGesamtenergie: 5,
-      ratingDirekteEmission: 5,
+      efficiencyBuildingEnvelope: 2,
+      totalEnergyEfficiency: 4,
+      directCO2Emissions: 6,
     };
 
     return (
@@ -277,7 +276,7 @@ const LayerHoverInfoFactory = () => {
           {'geak_zertifizierung'}
         </StyledLayerName>
         {hasFieldsToShow && <StyledDivider />}
-        <CertificateModified building={exampleBuilding}/>
+        <Certificate building={exampleBuilding}/>
         {hasFieldsToShow && <StyledDivider />}
       </div>
     );

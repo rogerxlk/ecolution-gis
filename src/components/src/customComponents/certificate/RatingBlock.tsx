@@ -11,12 +11,12 @@ interface RatingBlockProps {
 
 export const RatingBlock: FC<RatingBlockProps> = ({ letter, backgroundColor, startBlock, endBlock, active }) => {
   let width: number = 40;
-  let height: number = 50;
+  let height: number = 40;
   const borderRadius: string = '14px';
   let borderRadiusLeftSide: string = '0px';
   let borderRadiusRightSide: string = '0px';
   let borderStyle: string = '';
-  let fontSize: string = '26px';
+  let fontSize: string = '20px';
   let fontWeight: string = 'normal';
 
   if(startBlock || endBlock || active){
@@ -24,9 +24,9 @@ export const RatingBlock: FC<RatingBlockProps> = ({ letter, backgroundColor, sta
       borderRadiusLeftSide = borderRadius;
       borderRadiusRightSide = borderRadius;
       width = 40;
-      height = 70;
+      height = 60;
       borderStyle = '4px solid white';
-      fontSize = '32px';
+      fontSize = '26px';
       fontWeight = 'bold';
     }else if(startBlock) {
       borderRadiusLeftSide = borderRadius;

@@ -1,7 +1,7 @@
 export interface Building {
   certificateDefinitive: boolean;
   address: string;
-  ratingEffizienzGebaedehuelle: number;
-  ratingEffizienzGesamtenergie: number;
-  ratingDirekteEmission: number;
+  efficiencyBuildingEnvelope: number,
+  totalEnergyEfficiency: number,
+  directCO2Emissions: number,
 }
