@@ -21,7 +21,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {ArrowRight} from '../common/icons';
-import {CustomNavbar} from "../CustomNavbar";
+import {CustomNavbar} from "../customComponents/CustomNavbar";
 
 export type CollapseButtonProps = {
   isOpen: boolean;

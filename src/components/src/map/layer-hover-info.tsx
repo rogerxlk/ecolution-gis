@@ -32,6 +32,9 @@ import {
   getTooltipDisplayValue
 } from '@kepler.gl/reducers';
 import {useIntl} from 'react-intl';
+import {Certificate} from "../customComponents/certificate/Certificate";
+import {Building} from "../customComponents/certificate/Building";
+import {CertificateModified} from "../customComponents/certificate/CertificateModified";
 
 export const StyledLayerName = styled(CenterFlexbox)`
   color: ${props => props.theme.textColorHl};
@@ -201,7 +204,7 @@ const CellInfo = ({
   );
 };
 
-const LayerHoverInfoFactory = () => {
+/*const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = props => {
     const {data, layer} = props;
     const intl = useIntl();
@@ -233,6 +236,48 @@ const LayerHoverInfoFactory = () => {
             <EntryInfo {...props} />
           )}
         </StyledTable>
+        {hasFieldsToShow && <StyledDivider />}
+      </div>
+    );
+  };
+
+  LayerHoverInfo.propTypes = {
+    fields: PropTypes.arrayOf(PropTypes.any),
+    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
+    layer: PropTypes.object,
+    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
+  };
+  return LayerHoverInfo;
+};*/
+
+const LayerHoverInfoFactory = () => {
+  const LayerHoverInfo = props => {
+    const {data, layer} = props;
+    const intl = useIntl();
+    if (!data || !layer) {
+      return null;
+    }
+
+    const hasFieldsToShow =
+      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
+      (props.fieldsToShow && props.fieldsToShow.length > 0);
+
+    const exampleBuilding: Building = {
+      certificateDefinitive: true,
+      address: 'Sonnenbergstrasse 53, 5408 Ennetbaden, Aargau',
+      ratingEffizienzGebaedehuelle: 5,
+      ratingEffizienzGesamtenergie: 5,
+      ratingDirekteEmission: 5,
+    };
+
+    return (
+      <div className="map-popover__layer-info">
+        <StyledLayerName className="map-popover__layer-name">
+          <Layers height="12px" />
+          {'geak_zertifizierung'}
+        </StyledLayerName>
+        {hasFieldsToShow && <StyledDivider />}
+        <CertificateModified building={exampleBuilding}/>
         {hasFieldsToShow && <StyledDivider />}
       </div>
     );

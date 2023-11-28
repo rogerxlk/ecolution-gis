@@ -79,6 +79,7 @@ function InfoHelperFactory() {
                 }}
               />
             )}
+            <div>Hello?</div>
           </div>
         </Tooltip>
       </StyledInfoHelper>
