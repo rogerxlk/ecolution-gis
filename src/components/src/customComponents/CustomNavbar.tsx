@@ -10,7 +10,7 @@ import {ProfileIcon} from "./assets/icons/ProfileIcon";
 import {SettingsIcon} from "./assets/icons/SettingsIcon";
 
 export const CustomNavbar: FC = () => {
-  const [activeButton, setActiveButton] = useState<number | null>(null);
+  const [activeButton, setActiveButton] = useState<number | null>(1);
 
   const handleButtonClick = (buttonIndex: number) => {
     setActiveButton(activeButton === buttonIndex ? null : buttonIndex);

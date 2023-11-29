@@ -93,9 +93,9 @@ const mapStateUpdaters = null;
 export const INITIAL_MAP_STATE: MapState = {
   pitch: 0,
   bearing: 0,
-  latitude: 37.75043,
-  longitude: -122.34679,
-  zoom: 9,
+  latitude: 46.820611047785036,
+  longitude: 8.406976110937492,
+  zoom: 8,
   dragRotate: false,
   width: 800,
   height: 800,
@@ -513,3 +513,5 @@ function updateViewport(originalViewport: Viewport, viewportUpdates: Viewport): 
 
   return newViewport;
 }
+
+
