@@ -17,7 +17,6 @@ export const RatingElement: FC<RatingElementProps> = ({ rating }) => {
     { letter: 'G', backgroundColor: '#E30613', startBlock: false, active: false, endBlock: true },
   ];
 
-  // Setze das aktive Rating
   ratingData[rating].active = true;
 
   return (
