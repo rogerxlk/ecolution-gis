@@ -269,6 +269,11 @@ const LayerHoverInfoFactory = () => {
       directCO2Emissions: 6,
     };
 
+    console.log('data', data);
+    console.log('layer', layer);
+
+    //use data somehow to pass each individual dataset to each hovered point
+
     return (
       <div className="map-popover__layer-info">
         <StyledLayerName className="map-popover__layer-name">
