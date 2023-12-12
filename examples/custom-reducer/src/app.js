@@ -25,7 +25,7 @@ import KeplerGl from '@kepler.gl/components';
 import {createAction} from 'redux-actions';
 
 import {addDataToMap, wrapTo} from '@kepler.gl/actions';
-import sampleData from './data/sample-data';
+import ourData from './data/ourData';
 import config from './configurations/config';
 
 const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
@@ -39,7 +39,7 @@ class App extends Component {
       wrapTo(
         'map1',
         addDataToMap({
-          datasets: sampleData,
+          datasets: ourData,
           config
         })
       )
@@ -53,7 +53,7 @@ class App extends Component {
   render() {
     return (
       <div style={{position: 'absolute', width: '100%', height: '100%'}}>
-        <button onClick={this._toggleSidePanelVisibility}> Hide / Show Side Panel</button>
+        {/*<button onClick={this._toggleSidePanelVisibility}> Hide / Show Side Panel</button>*/}
         <AutoSizer>
           {({height, width}) => (
             <KeplerGl mapboxApiAccessToken={MAPBOX_TOKEN} id="map1" width={width} height={height} />
