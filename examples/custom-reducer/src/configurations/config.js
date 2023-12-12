@@ -130,7 +130,7 @@ export default {
     mapState: {
       bearing: 0,
       dragRotate: false,
-      latitude: 46.6,
+      latitude: 46.8,
       longitude: 8.2052,
       pitch: 0,
       zoom: 8,
@@ -144,7 +144,7 @@ export default {
       visibleLayerGroups: {
         label: true,
         road: true,
-        border: false,
+        border: true,
         building: true,
         water: true,
         land: true
