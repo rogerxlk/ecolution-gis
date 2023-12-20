@@ -250,6 +250,35 @@ const CellInfo = ({
   return LayerHoverInfo;
 };*/
 
+/*const LayerHoverInfoFactory = () => {
+  const LayerHoverInfo = (props: any) => {
+    const { data, layer } = props;
+
+    if (!data || !layer) {
+      return null;
+    }
+
+    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
+
+    return (
+      <div className="map-popover__layer-info">
+        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
+      </div>
+    );
+  };
+
+  LayerHoverInfo.propTypes = {
+    fields: PropTypes.arrayOf(PropTypes.any),
+    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
+    layer: PropTypes.object,
+    data: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.any),
+      PropTypes.object,
+    ]),
+  };
+  return LayerHoverInfo;
+};*/
+
 const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = (props: any) => {
     const { data, layer } = props;
@@ -278,6 +307,7 @@ const LayerHoverInfoFactory = () => {
   };
   return LayerHoverInfo;
 };
+
 
 
 /*const LayerHoverInfoFactory = () => {

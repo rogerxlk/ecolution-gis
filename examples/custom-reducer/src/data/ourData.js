@@ -21,7 +21,8 @@ export default {
       { name: 'latitude' },
       { name: 'efficiencyBuildingEnvelope' },
       { name: 'totalEnergyEfficiency' },
-      { name: 'directCO2Emissions' }
+      { name: 'directCO2Emissions' },
+      { name: 'officialCertificate' }
     ],
     rows: [
       [
@@ -41,7 +42,8 @@ export default {
         47.46376960476654,
         3,
         5,
-        2
+        2,
+        true
       ],
       [
         14728,
@@ -60,7 +62,8 @@ export default {
         47.53498441895126,
         4,
         6,
-        5
+        5,
+        true
       ],
       [
         10164,
@@ -79,7 +82,8 @@ export default {
         46.85186364992036,
         2,
         2,
-        4
+        4,
+        true
       ],
       [
         10794,
@@ -98,7 +102,8 @@ export default {
         46.65726621636318,
         3,
         2,
-        5
+        5,
+        true
       ],
       [
         9476,
@@ -117,7 +122,8 @@ export default {
         47.307360136537916,
         6,
         6,
-        4
+        4,
+        true
       ],
       [
         14729,
@@ -136,7 +142,8 @@ export default {
         47.31593755975331,
         2,
         4,
-        3
+        3,
+        true
       ],
       [
         14730,
@@ -155,7 +162,8 @@ export default {
         47.16226016731355,
         2,
         4,
-        4
+        4,
+        true
       ],
       [
         9365,
@@ -174,7 +182,8 @@ export default {
         47.38627493214124,
         5,
         4,
-        5
+        5,
+        true
       ],
       [
         14742,
@@ -193,7 +202,8 @@ export default {
         47.40449707125795,
         2,
         4,
-        5
+        5,
+        true
       ]
     ]
   }
