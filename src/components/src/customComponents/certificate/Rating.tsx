@@ -1,11 +1,10 @@
 import React from 'react';
 import { FC } from 'react';
-import {Building} from "./Building";
 import {RatingElement} from "./RatingElement";
 import {EfficiencyValues} from "./EfficiencyValues";
 
 interface RatingProps {
-  building: Building,
+  building: any,
   value: EfficiencyValues,
 }
 
@@ -14,18 +13,18 @@ export const Rating: FC<RatingProps> = ({ building, value}) => {
     const buildingValue = (() => {
         switch (value) {
             case EfficiencyValues.efficiencyBuildingEnvelope:
-                return building.efficiencyBuildingEnvelope;
+                return 14;
             case EfficiencyValues.totalEnergyEfficiency:
-                return building.totalEnergyEfficiency;
+                return 15;
             case EfficiencyValues.directCO2Emissions:
-                return building.directCO2Emissions;
+                return 16;
         }
     })();
 
   return (
     <div style={{paddingTop: 10}}>
         <div>{value}</div>
-        <RatingElement rating={buildingValue} />
+        <RatingElement rating={building[buildingValue]} />
     </div>
   );
 };
