@@ -230,7 +230,7 @@ export type BaseLayerConstructorProps = {
   id?: string;
 } & LayerBaseConfigPartial;
 
-class Layer {
+class  Layer {
   id: string;
   meta: Record<string, any>;
   visConfigSettings: {

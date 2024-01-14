@@ -23,7 +23,7 @@ import styled from 'styled-components';
 import {TooltipField} from '@kepler.gl/types';
 import {CenterFlexbox} from '../common/styled-components';
 import {Layers} from '../common/icons';
-import PropTypes from 'prop-types';
+import PropTypes, {object} from 'prop-types';
 import {notNullorUndefined} from '@kepler.gl/utils';
 import {Layer} from '@kepler.gl/layers';
 import {
@@ -35,6 +35,10 @@ import {useIntl} from 'react-intl';
 import {Certificate} from "../customComponents/certificate/Certificate";
 import {Building} from "../customComponents/certificate/Building";
 import {CertificateModified} from "../customComponents/certificate/CertificateModified";
+import {Card, Flex} from "antd";
+import {Rating} from "../customComponents/certificate/Rating";
+import {EfficiencyValues} from "../customComponents/certificate/EfficiencyValues";
+import colorSelector from "../side-panel/layer-panel/color-selector";
 
 export const StyledLayerName = styled(CenterFlexbox)`
   color: ${props => props.theme.textColorHl};
@@ -250,6 +254,56 @@ const CellInfo = ({
   return LayerHoverInfo;
 };*/
 
+
+const LayerHoverInfoFactory = () => {
+  const LayerHoverInfo = props => {
+    const {data, layer} = props;
+    const intl = useIntl();
+    if (!data || !layer) {
+      return null;
+    }
+
+    const hasFieldsToShow =
+      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
+      (props.fieldsToShow && props.fieldsToShow.length > 0);
+
+    return (
+      <div className="map-popover__layer-info">
+        <StyledLayerName className="map-popover__layer-name">
+          <Layers height="12px" />
+          {props.layer.config.label}
+        </StyledLayerName>
+        {hasFieldsToShow && <StyledDivider />}
+        <StyledTable>
+          {data.fieldValues ? (
+            <tbody>
+            {data.fieldValues.map(({labelMessage, value}, i) => (
+              <Row key={i} name={intl.formatMessage({id: labelMessage})} value={value} />
+            ))}
+            </tbody>
+          ) : props.layer.isAggregated ? (
+            <CellInfo {...props} />
+          ) : (
+            <>
+              <EntryInfo {...props} />
+              <Certificate {...props} />
+            </>
+          )}
+        </StyledTable>
+        {hasFieldsToShow && <StyledDivider />}
+      </div>
+    );
+  };
+
+  LayerHoverInfo.propTypes = {
+    fields: PropTypes.arrayOf(PropTypes.any),
+    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
+    layer: PropTypes.object,
+    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
+  };
+  return LayerHoverInfo;
+};
+
 /*const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = (props: any) => {
     const { data, layer } = props;
@@ -279,7 +333,7 @@ const CellInfo = ({
   return LayerHoverInfo;
 };*/
 
-const LayerHoverInfoFactory = () => {
+/*const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = (props: any) => {
     const { data, layer } = props;
 
@@ -306,7 +360,7 @@ const LayerHoverInfoFactory = () => {
     ]),
   };
   return LayerHoverInfo;
-};
+};*/
 
 
 
