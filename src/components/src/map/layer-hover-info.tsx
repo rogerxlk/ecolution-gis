@@ -118,20 +118,38 @@ const Row: React.FC<RowProps> = ({name, value, deltaValue, url}) => {
   );
 };
 
-const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType}) => (
-  <tbody>
-    {fieldsToShow.map(item => (
-      <EntryInfoRow
-        key={item.name}
-        item={item}
-        fields={fields}
-        data={data}
-        primaryData={primaryData}
-        compareType={compareType}
-      />
-    ))}
-  </tbody>
-);
+const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType}) => {
+  const rowData = fields.map(item => {
+    const fieldIdx = fields.findIndex(f => f.name === item.name);
+    if (fieldIdx < 0) {
+      return null;
+    }
+    const field = fields[fieldIdx];
+    const value = data.valueAt(fieldIdx);
+
+    return value;
+  });
+
+  console.log("rowData", rowData);
+
+  return <Certificate data={rowData}></Certificate>;
+
+//   return (
+//   <tbody>
+// {fieldsToShow.map(item => (
+//   <EntryInfoRow
+//     key={item.name}
+//     item={item}
+//     fields={fields}
+//     data={data}
+//      primaryData={primaryData}
+//         compareType={compareType}
+//       />
+//     ))}
+//   </tbody>
+// );
+
+}
 
 const EntryInfoRow = ({item, fields, data, primaryData, compareType}) => {
   const fieldIdx = fields.findIndex(f => f.name === item.name);
