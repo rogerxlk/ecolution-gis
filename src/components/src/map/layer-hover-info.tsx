@@ -158,6 +158,7 @@ const EntryInfoRow = ({item, fields, data, primaryData, compareType}) => {
   }
   const field = fields[fieldIdx];
   const value = data.valueAt(fieldIdx);
+  console.log("value", value);
   const displayValue = getTooltipDisplayValue({item, field, value});
 
   const displayDeltaValue = primaryData
@@ -222,41 +223,34 @@ const CellInfo = ({
   );
 };
 
-/*const LayerHoverInfoFactory = () => {
+// // OFFICIAL METHOD FROM KEPLER
+const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = props => {
-    const {data, layer} = props;
+    const {data, layer, fields} = props;
     const intl = useIntl();
     if (!data || !layer) {
       return null;
     }
 
+    console.log("vals", props.fields);
     const hasFieldsToShow =
       (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
       (props.fieldsToShow && props.fieldsToShow.length > 0);
 
-    return (
-      <div className="map-popover__layer-info">
-        <StyledLayerName className="map-popover__layer-name">
-          <Layers height="12px" />
-          {props.layer.config.label}
-        </StyledLayerName>
-        {hasFieldsToShow && <StyledDivider />}
-        <StyledTable>
-          {data.fieldValues ? (
-            <tbody>
-              {data.fieldValues.map(({labelMessage, value}, i) => (
-                <Row key={i} name={intl.formatMessage({id: labelMessage})} value={value} />
-              ))}
-            </tbody>
-          ) : props.layer.isAggregated ? (
-            <CellInfo {...props} />
-          ) : (
-            <EntryInfo {...props} />
-          )}
-        </StyledTable>
-        {hasFieldsToShow && <StyledDivider />}
-      </div>
-    );
+    const rowData = fields.map(item => {
+      const fieldIdx = fields.findIndex(f => f.name === item.name);
+      if (fieldIdx < 0) {
+        return null;
+      }
+      const field = fields[fieldIdx];
+      const value = data.valueAt(fieldIdx);
+
+      return value;
+    });
+
+    console.log("rowData", rowData);
+
+    return <Certificate data={rowData}></Certificate>;
   };
 
   LayerHoverInfo.propTypes = {
@@ -264,103 +258,58 @@ const CellInfo = ({
     fieldsToShow: PropTypes.arrayOf(PropTypes.any),
     layer: PropTypes.object,
     data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
-  };
-  return LayerHoverInfo;
-};*/
-
-/*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = (props: any) => {
-    const { data, layer } = props;
-
-    if (!data || !layer) {
-      return null;
-    }
-
-    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
-
-    return (
-      <div className="map-popover__layer-info">
-        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.any),
-      PropTypes.object,
-    ]),
-  };
-  return LayerHoverInfo;
-};*/
-
-const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = (props: any) => {
-    const { data, layer } = props;
-
-    if (!data || !layer) {
-      return null;
-    }
-
-    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
-
-    return (
-      <div className="map-popover__layer-info">
-        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.any),
-      PropTypes.object,
-    ]),
   };
   return LayerHoverInfo;
 };
 
-
+// MY OWN ATTEMPT: DISPLAY ONE ROW OVER EVERY ENTRY
+// const LayerHoverInfoFactory = () => {
+//   const LayerHoverInfo = (props: any) => {
+//     const { data, layer } = props;
+//     console.log('fieldValues', props);
+//
+//     if (!data || !layer) {
+//       return null;
+//     }
+//
+//     const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
+//     // console.log('row', data._dataContainer._rows[data._dataContainer._rowIndex]);
+//
+//     return (
+//       <div className="map-popover__layer-info">
+//         {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
+//       </div>
+//     );
+//   };
+//
+//   LayerHoverInfo.propTypes = {
+//     fields: PropTypes.arrayOf(PropTypes.any),
+//     fieldsToShow: PropTypes.arrayOf(PropTypes.any),
+//     layer: PropTypes.object,
+//     data: PropTypes.oneOfType([
+//       PropTypes.arrayOf(PropTypes.any),
+//       PropTypes.object,
+//     ]),
+//   };
+//   return LayerHoverInfo;
+// };
 
 /*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = props => {
-    const {data, layer} = props;
+  const LayerHoverInfo = (props: any) => {
+    const { data, layer } = props;
+
     if (!data || !layer) {
       return null;
     }
 
-    const hasFieldsToShow =
-      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
-      (props.fieldsToShow && props.fieldsToShow.length > 0);
-
-    const exampleBuilding: Building = {
-      certificateDefinitive: true,
-      address: 'Sonnenbergstrasse 53, 5408 Ennetbaden, Aargau',
-      efficiencyBuildingEnvelope: 2,
-      totalEnergyEfficiency: 4,
-      directCO2Emissions: 6,
-    };
+    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
 
     console.log('data', data);
     console.log('layer', layer);
 
-    //use data somehow to pass each individual dataset to each hovered point
-
     return (
       <div className="map-popover__layer-info">
-        <StyledLayerName className="map-popover__layer-name">
-          <Layers height="12px" />
-          {'geak_zertifizierung'}
-        </StyledLayerName>
-        {hasFieldsToShow && <StyledDivider />}
-        <Certificate building={exampleBuilding}/>
-        {hasFieldsToShow && <StyledDivider />}
+        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
       </div>
     );
   };
@@ -369,7 +318,10 @@ const LayerHoverInfoFactory = () => {
     fields: PropTypes.arrayOf(PropTypes.any),
     fieldsToShow: PropTypes.arrayOf(PropTypes.any),
     layer: PropTypes.object,
-    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
+    data: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.any),
+      PropTypes.object,
+    ]),
   };
   return LayerHoverInfo;
 };*/
