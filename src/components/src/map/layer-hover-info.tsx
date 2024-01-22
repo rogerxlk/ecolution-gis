@@ -18,27 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import React, {useMemo} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {TooltipField} from '@kepler.gl/types';
 import {CenterFlexbox} from '../common/styled-components';
-import {Layers} from '../common/icons';
-import PropTypes, {object} from 'prop-types';
-import {notNullorUndefined} from '@kepler.gl/utils';
-import {Layer} from '@kepler.gl/layers';
-import {
-  AggregationLayerHoverData,
-  getTooltipDisplayDeltaValue,
-  getTooltipDisplayValue
-} from '@kepler.gl/reducers';
-import {useIntl} from 'react-intl';
+import PropTypes from 'prop-types';
 import {Certificate} from "../customComponents/certificate/Certificate";
-import {Building} from "../customComponents/certificate/Building";
-import {CertificateModified} from "../customComponents/certificate/CertificateModified";
-import {Card, Flex} from "antd";
-import {Rating} from "../customComponents/certificate/Rating";
-import {EfficiencyValues} from "../customComponents/certificate/EfficiencyValues";
-import colorSelector from "../side-panel/layer-panel/color-selector";
 
 export const StyledLayerName = styled(CenterFlexbox)`
   color: ${props => props.theme.textColorHl};
@@ -51,7 +35,7 @@ export const StyledLayerName = styled(CenterFlexbox)`
   }
 `;
 
-const StyledTable = styled.table`
+/*const StyledTable = styled.table`
   & .row__delta-value {
     text-align: right;
     margin-left: 6px;
@@ -84,9 +68,9 @@ interface RowProps {
   value: string;
   deltaValue?: string | null;
   url?: string;
-}
+}*/
 
-const Row: React.FC<RowProps> = ({name, value, deltaValue, url}) => {
+/*const Row: React.FC<RowProps> = ({name, value, deltaValue, url}) => {
   // Set 'url' to 'value' if it looks like a url
   if (!url && value && typeof value === 'string' && value.match(/^http/)) {
     url = value;
@@ -120,30 +104,34 @@ const Row: React.FC<RowProps> = ({name, value, deltaValue, url}) => {
       </td>
     </tr>
   );
-};
+};*/
 
-const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType}) => (
-  <tbody>
-    {fieldsToShow.map(item => (
-      <EntryInfoRow
-        key={item.name}
-        item={item}
-        fields={fields}
-        data={data}
-        primaryData={primaryData}
-        compareType={compareType}
-      />
-    ))}
-  </tbody>
-);
+/*const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType}) => {
+  const rowData = fields.map(item => {
+    const fieldIdx = fields.findIndex(f => f.name === item.name);
+    if (fieldIdx < 0) {
+      return null;
+    }
+    const field = fields[fieldIdx];
+    const value = data.valueAt(fieldIdx);
 
-const EntryInfoRow = ({item, fields, data, primaryData, compareType}) => {
+    return value;
+  });
+
+  console.log("rowData", rowData);
+
+  return <Certificate data={rowData}></Certificate>;
+
+}*/
+
+/*const EntryInfoRow = ({item, fields, data, primaryData, compareType}) => {
   const fieldIdx = fields.findIndex(f => f.name === item.name);
   if (fieldIdx < 0) {
     return null;
   }
   const field = fields[fieldIdx];
   const value = data.valueAt(fieldIdx);
+  console.log("value", value);
   const displayValue = getTooltipDisplayValue({item, field, value});
 
   const displayDeltaValue = primaryData
@@ -163,10 +151,10 @@ const EntryInfoRow = ({item, fields, data, primaryData, compareType}) => {
       deltaValue={displayDeltaValue}
     />
   );
-};
+};*/
 
 // TODO: supporting comparative value for aggregated cells as well
-const CellInfo = ({
+/*const CellInfo = ({
   fieldsToShow,
   data,
   layer
@@ -206,93 +194,24 @@ const CellInfo = ({
       ) : null}
     </tbody>
   );
-};
-
-/*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = props => {
-    const {data, layer} = props;
-    const intl = useIntl();
-    if (!data || !layer) {
-      return null;
-    }
-
-    const hasFieldsToShow =
-      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
-      (props.fieldsToShow && props.fieldsToShow.length > 0);
-
-    return (
-      <div className="map-popover__layer-info">
-        <StyledLayerName className="map-popover__layer-name">
-          <Layers height="12px" />
-          {props.layer.config.label}
-        </StyledLayerName>
-        {hasFieldsToShow && <StyledDivider />}
-        <StyledTable>
-          {data.fieldValues ? (
-            <tbody>
-              {data.fieldValues.map(({labelMessage, value}, i) => (
-                <Row key={i} name={intl.formatMessage({id: labelMessage})} value={value} />
-              ))}
-            </tbody>
-          ) : props.layer.isAggregated ? (
-            <CellInfo {...props} />
-          ) : (
-            <EntryInfo {...props} />
-          )}
-        </StyledTable>
-        {hasFieldsToShow && <StyledDivider />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
-  };
-  return LayerHoverInfo;
 };*/
-
 
 const LayerHoverInfoFactory = () => {
   const LayerHoverInfo = props => {
-    const {data, layer} = props;
-    const intl = useIntl();
+    const {data, layer, fields} = props;
     if (!data || !layer) {
       return null;
     }
 
-    const hasFieldsToShow =
-      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
-      (props.fieldsToShow && props.fieldsToShow.length > 0);
+    const rowData = fields.map(item => {
+      const fieldIdx = fields.findIndex(f => f.name === item.name);
+      if (fieldIdx < 0) {
+        return null;
+      }
+      return data.valueAt(fieldIdx);
+    });
 
-    return (
-      <div className="map-popover__layer-info">
-        <StyledLayerName className="map-popover__layer-name">
-          <Layers height="12px" />
-          {props.layer.config.label}
-        </StyledLayerName>
-        {hasFieldsToShow && <StyledDivider />}
-        <StyledTable>
-          {data.fieldValues ? (
-            <tbody>
-            {data.fieldValues.map(({labelMessage, value}, i) => (
-              <Row key={i} name={intl.formatMessage({id: labelMessage})} value={value} />
-            ))}
-            </tbody>
-          ) : props.layer.isAggregated ? (
-            <CellInfo {...props} />
-          ) : (
-            <>
-              <EntryInfo {...props} />
-              <Certificate {...props} />
-            </>
-          )}
-        </StyledTable>
-        {hasFieldsToShow && <StyledDivider />}
-      </div>
-    );
+    return <Certificate data={rowData}></Certificate>;
   };
 
   LayerHoverInfo.propTypes = {
@@ -303,111 +222,5 @@ const LayerHoverInfoFactory = () => {
   };
   return LayerHoverInfo;
 };
-
-/*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = (props: any) => {
-    const { data, layer } = props;
-
-    if (!data || !layer) {
-      return null;
-    }
-
-    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
-
-    return (
-      <div className="map-popover__layer-info">
-        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.any),
-      PropTypes.object,
-    ]),
-  };
-  return LayerHoverInfo;
-};*/
-
-/*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = (props: any) => {
-    const { data, layer } = props;
-
-    if (!data || !layer) {
-      return null;
-    }
-
-    const shouldShowCertificate = !data.fieldValues && !props.layer.isAggregated;
-
-    return (
-      <div className="map-popover__layer-info">
-        {shouldShowCertificate && <Certificate data={data._dataContainer._rows[1]} />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.any),
-      PropTypes.object,
-    ]),
-  };
-  return LayerHoverInfo;
-};*/
-
-
-
-/*const LayerHoverInfoFactory = () => {
-  const LayerHoverInfo = props => {
-    const {data, layer} = props;
-    if (!data || !layer) {
-      return null;
-    }
-
-    const hasFieldsToShow =
-      (data.fieldValues && Object.keys(data.fieldValues).length > 0) ||
-      (props.fieldsToShow && props.fieldsToShow.length > 0);
-
-    const exampleBuilding: Building = {
-      certificateDefinitive: true,
-      address: 'Sonnenbergstrasse 53, 5408 Ennetbaden, Aargau',
-      efficiencyBuildingEnvelope: 2,
-      totalEnergyEfficiency: 4,
-      directCO2Emissions: 6,
-    };
-
-    console.log('data', data);
-    console.log('layer', layer);
-
-    //use data somehow to pass each individual dataset to each hovered point
-
-    return (
-      <div className="map-popover__layer-info">
-        <StyledLayerName className="map-popover__layer-name">
-          <Layers height="12px" />
-          {'geak_zertifizierung'}
-        </StyledLayerName>
-        {hasFieldsToShow && <StyledDivider />}
-        <Certificate building={exampleBuilding}/>
-        {hasFieldsToShow && <StyledDivider />}
-      </div>
-    );
-  };
-
-  LayerHoverInfo.propTypes = {
-    fields: PropTypes.arrayOf(PropTypes.any),
-    fieldsToShow: PropTypes.arrayOf(PropTypes.any),
-    layer: PropTypes.object,
-    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.any), PropTypes.object])
-  };
-  return LayerHoverInfo;
-};*/
 
 export default LayerHoverInfoFactory;
