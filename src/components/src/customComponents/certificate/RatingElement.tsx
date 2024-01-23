@@ -34,3 +34,4 @@ export const RatingElement: FC<RatingElementProps> = ({ rating }) => {
     </Flex>
   );
 };
+

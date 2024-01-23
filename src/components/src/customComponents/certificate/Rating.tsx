@@ -5,13 +5,13 @@ import {EfficiencyValues} from "./EfficiencyValues";
 
 interface RatingProps {
   building: any,
-  value: EfficiencyValues,
+  label: EfficiencyValues,
 }
 
-export const Rating: FC<RatingProps> = ({ building, value}) => {
+export const Rating: FC<RatingProps> = ({ building, label}) => {
 
     const buildingValue = (() => {
-        switch (value) {
+        switch (label) {
             case EfficiencyValues.efficiencyBuildingEnvelope:
                 return 14;
             case EfficiencyValues.totalEnergyEfficiency:
@@ -23,8 +23,9 @@ export const Rating: FC<RatingProps> = ({ building, value}) => {
 
   return (
     <div style={{paddingTop: 10}}>
-        <div>{value}</div>
+        <div>{label}</div>
         <RatingElement rating={building[buildingValue]} />
     </div>
   );
 };
+

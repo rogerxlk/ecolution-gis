@@ -19,9 +19,9 @@ export const Certificate: FC<CertificateProps> = ({ data }) => {
                 <div style={{ color: '#FFFFFF', fontSize: 12, width: '66%', textAlign: 'right' }}>{`${data[1]},`}<br />{`${data[2]} ${data[3]}, ${data[4]}`}</div>
             </Flex>
             <Card style={{borderRadius: 0}}>
-                <Rating building={data} value={EfficiencyValues.efficiencyBuildingEnvelope} />
-                <Rating building={data} value={EfficiencyValues.totalEnergyEfficiency} />
-                <Rating building={data} value={EfficiencyValues.directCO2Emissions} />
+                <Rating building={data} label={EfficiencyValues.efficiencyBuildingEnvelope} />
+                <Rating building={data} label={EfficiencyValues.totalEnergyEfficiency} />
+                <Rating building={data} label={EfficiencyValues.directCO2Emissions} />
             </Card>
         </Card>
     );
