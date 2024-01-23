@@ -2,7 +2,7 @@ import React from "react";
 import {FC} from "react";
 import {Flex} from "antd";
 import {IconButton} from "./IconButton";
-import {MapIcon} from "./assets/icons/MapIcon";
+import {MapIcon} from "../assets/icons/MapIcon";
 import {theme} from "@kepler.gl/styles";
 
 export const CustomNavbar: FC = () => {
