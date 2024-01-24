@@ -131,9 +131,9 @@ export default {
       bearing: 0,
       dragRotate: false,
       latitude: 46.8,
-      longitude: 8.2052,
+      longitude: 7.8,
       pitch: 0,
-      zoom: 8,
+      zoom: 7.4,
       isSplit: false
     },
     mapStyle: {
