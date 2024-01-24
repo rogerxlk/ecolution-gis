@@ -9,7 +9,13 @@ interface RatingBlockProps {
   active?: boolean,
 }
 
-export const RatingBlock: FC<RatingBlockProps> = ({ letter, backgroundColor, startBlock, endBlock, active }) => {
+export const RatingBlock: FC<RatingBlockProps> = ({
+  letter,
+  backgroundColor,
+  startBlock,
+  endBlock,
+  active
+}) => {
   let width: number = 40;
   let height: number = 40;
   const borderRadius: string = '14px';

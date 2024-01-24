@@ -10,16 +10,12 @@ interface RatingProps {
 
 export const Rating: FC<RatingProps> = ({ building, label}) => {
 
-    const buildingValue = (() => {
-        switch (label) {
-            case EfficiencyValues.efficiencyBuildingEnvelope:
-                return 14;
-            case EfficiencyValues.totalEnergyEfficiency:
-                return 15;
-            case EfficiencyValues.directCO2Emissions:
-                return 16;
-        }
-    })();
+  const buildingValue = {
+    [EfficiencyValues.efficiencyBuildingEnvelope]: 14,
+    [EfficiencyValues.totalEnergyEfficiency]: 15,
+    [EfficiencyValues.directCO2Emissions]: 16,
+  }[label];
+
 
   return (
     <div style={{paddingTop: 10}}>

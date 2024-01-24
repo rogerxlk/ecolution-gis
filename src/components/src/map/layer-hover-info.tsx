@@ -204,7 +204,7 @@ const LayerHoverInfoFactory = () => {
     }
 
     const rowData = fields.map(item => {
-      const fieldIdx = fields.findIndex(f => f.name === item.name);
+      const fieldIdx = fields.indexOf(item);
       if (fieldIdx < 0) {
         return null;
       }

@@ -8,15 +8,15 @@ interface CertificateProps {
 }
 export const Certificate: FC<CertificateProps> = ({ data }) => {
 
-    console.log('building', data);
-
     return (
         <Card style={{ width: 360, height: 'min-content', backgroundColor: data[17] ? '#018675' : '#A983C6'}}>
             <Flex style={{paddingBottom: 20}}>
-                <div style={{ color: '#FFFFFF', fontSize: 12, width: '33%' }}>
+                <div style={{ color: data[17] ? '#00413a' : '#4e2867', fontSize: 12, fontWeight: "bolder", width: '33%' }}>
                     {data[17] ? 'Offizielle Bewertung' : 'Provisorische Bewertung'}
                 </div>
-                <div style={{ color: '#FFFFFF', fontSize: 12, width: '66%', textAlign: 'right' }}>{`${data[1]},`}<br />{`${data[2]} ${data[3]}, ${data[4]}`}</div>
+                <div style={{ color: '#FFFFFF', fontSize: 12, width: '66%', textAlign: 'right' }}>
+                  {`${data[1]},`}<br />{`${data[2]} ${data[3]}, ${data[4]}`}
+                </div>
             </Flex>
             <Card style={{borderRadius: 0}}>
                 <Rating building={data} label={EfficiencyValues.efficiencyBuildingEnvelope} />
@@ -26,3 +26,4 @@ export const Certificate: FC<CertificateProps> = ({ data }) => {
         </Card>
     );
 };
+
