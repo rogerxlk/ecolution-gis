@@ -40,7 +40,11 @@ class App extends Component {
         'map1',
         addDataToMap({
           datasets: ourData,
-          config
+          config: config,
+          options: {
+            keepExistingConfig: false,
+            autoCreateLayers: false,
+          }
         })
       )
     );

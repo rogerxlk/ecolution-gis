@@ -43,7 +43,7 @@ export default {
         3,
         5,
         2,
-        true
+        1
       ],
       [
         14728,
@@ -63,7 +63,7 @@ export default {
         4,
         6,
         5,
-        false
+        2
       ],
       [
         10164,
@@ -83,7 +83,7 @@ export default {
         2,
         2,
         4,
-        false
+        3
       ],
       [
         10794,
@@ -103,7 +103,7 @@ export default {
         3,
         2,
         5,
-        true
+        3
       ],
       [
         9476,
@@ -123,7 +123,7 @@ export default {
         6,
         6,
         4,
-        false
+        2
       ],
       [
         14729,
@@ -143,7 +143,7 @@ export default {
         2,
         4,
         3,
-        true
+        1
       ],
       [
         14730,
@@ -163,7 +163,7 @@ export default {
         2,
         4,
         4,
-        false
+        3
       ],
       [
         9365,
@@ -183,7 +183,7 @@ export default {
         5,
         4,
         5,
-        true
+        3
       ],
       [
         14742,
@@ -203,7 +203,7 @@ export default {
         2,
         4,
         5,
-        false
+        2
       ]
     ]
   }
