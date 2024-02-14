@@ -23,7 +23,7 @@ export default {
   config: {
     visState: {
       filters: [],
-      layer:
+      layers: [
         {
           id: '1s8r5md',
           type: 'point',
@@ -45,9 +45,9 @@ export default {
               thickness: 2,
               colorRange: {
                 name: 'Ice And Fire',
-                type: 'diverging',
+                type: 'all',
                 category: 'Uber',
-                colors: ['#D50255', '#FEAD54', '#FEEDB1', '#E8FEB5', '#49E3CE', '#0198BD'],
+                colors: ['#4ea119', '#a45905', '#8c02bb', '#E8FEB5', '#49E3CE', '#0198BD'],
                 reversed: true
               },
               radiusRange: [33.6, 96.2],
@@ -67,6 +67,7 @@ export default {
             sizeScale: 'sqrt'
           }
         },
+      ],
       interactionConfig: {
         tooltip: {
           fieldsToShow: {
